@@ -1,65 +1,63 @@
-import Image from "next/image";
+import Link from 'next/link';
+import { PlusCircle, TreePalm, FileBarChart, History } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-neutral-900 text-white relative">
+      {/* Hero / Header */}
+      <div className="bg-gradient-to-br from-emerald-900 to-green-900 p-6 pb-12 rounded-b-3xl shadow-2xl">
+        <h2 className="text-emerald-200 text-sm font-semibold tracking-wider mb-1">WELCOME HOME</h2>
+        <h1 className="text-3xl font-bold mb-6">SoongGrow Farm</h1>
+        
+        {/* Quick Stats Widget (Mockup) */}
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 flex justify-between items-center">
+            <div>
+                <p className="text-xs text-emerald-200 uppercase">This Month Exp</p>
+                <p className="text-2xl font-bold">RM --.--</p>
+            </div>
+            <div className="h-10 w-[1px] bg-white/20"></div>
+            <div>
+                 <p className="text-xs text-emerald-200 uppercase">Tree Health</p>
+                 <p className="text-xl font-bold text-emerald-400">0 Alerts</p>
+            </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+
+      {/* Main Action Grid */}
+      <div className="p-6 -mt-8 grid grid-cols-2 gap-4">
+        
+        {/* Add Expense - Primary Action */}
+        <Link href="/expenses/add" className="col-span-2 bg-emerald-600 hover:bg-emerald-500 active:scale-95 transition p-6 rounded-2xl shadow-lg flex flex-col items-center justify-center gap-3 group">
+            <div className="bg-emerald-800 p-3 rounded-full group-hover:bg-emerald-700 transition">
+                <PlusCircle size={32} />
+            </div>
+            <span className="font-bold text-lg">New Expense</span>
+        </Link>
+
+        {/* Tree Manager */}
+        <Link href="#" className="bg-neutral-800 hover:bg-neutral-750 active:scale-95 transition p-5 rounded-2xl border border-neutral-700 flex flex-col items-center justify-center gap-3">
+             <TreePalm size={28} className="text-lime-400" />
+             <span className="font-semibold text-neutral-300">My Trees</span>
+        </Link>
+        
+        {/* Reports */}
+        <Link href="#" className="bg-neutral-800 hover:bg-neutral-750 active:scale-95 transition p-5 rounded-2xl border border-neutral-700 flex flex-col items-center justify-center gap-3">
+             <FileBarChart size={28} className="text-blue-400" />
+             <span className="font-semibold text-neutral-300">Reports</span>
+        </Link>
+
+         {/* History */}
+         <Link href="#" className="bg-neutral-800 hover:bg-neutral-750 active:scale-95 transition p-5 rounded-2xl border border-neutral-700 flex flex-col items-center justify-center gap-3">
+             <History size={28} className="text-amber-400" />
+             <span className="font-semibold text-neutral-300">History</span>
+        </Link>
+
+      </div>
+
+      {/* Footer */}
+      <footer className="absolute bottom-6 w-full text-center text-neutral-600 text-xs">
+        <p>SoongGrow v1.0 • Private System</p>
+      </footer>
+    </main>
   );
 }
