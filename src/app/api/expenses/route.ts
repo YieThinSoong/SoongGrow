@@ -1,11 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addExpense } from '@/lib/sheets';
+import { addExpenses, getExpenses } from '@/lib/sheets';
 import { uploadImage } from '@/lib/drive';
+
+export async function GET() {
+  try {
+    const expenses = await getExpenses();
+    return NextResponse.json(expenses);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.json();
-    const { date, category, item, amount, image, notes } = formData;
+    const { date, items, image, notes, shopName, shopAddress, shopContact } = formData;
+
+    // Validate items
+    if (!items || !Array.isArray(items) || items.length === 0) {
+        return NextResponse.json({ error: 'No items provided' }, { status: 400 });
+    }
 
     let imageUrl = '';
 
@@ -26,16 +40,20 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const expense = {
+    // Construct expense objects for each item
+    const expenses = items.map((item: any) => ({
         date,
-        category,
-        item,
-        amount: parseFloat(amount),
+        category: item.category,
+        item: item.item,
+        amount: parseFloat(item.amount),
         image: imageUrl,
-        notes
-    };
+        notes,
+        shopName,
+        shopAddress,
+        shopContact
+    }));
 
-    const result = await addExpense(expense);
+    const result = await addExpenses(expenses);
 
     return NextResponse.json({ success: true, result });
   } catch (error: any) {
